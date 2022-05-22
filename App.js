@@ -128,18 +128,18 @@ export default class reactNativeBeaconExample extends Component {
             distance: distances
           }
           console.log("Start");
-          // fetch('http://172.20.10.11:80',
-          //  {
+          fetch('http://172.20.10.11:80',
+           {
             
-          //   method: 'POST',
-          //   headers: {
-          //     Accept: 'application/json',
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(payload),
-          // }).catch(function(){
-          //   console.log("network error");
-          // });
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          }).catch(function(){
+            console.log("network error");
+          });
         }
       }
     );
