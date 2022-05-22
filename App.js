@@ -94,7 +94,7 @@ export default class reactNativeBeaconExample extends Component {
       };
       // Range for beacons inside the region
       Beacons.startRangingBeaconsInRegion(region);
-      // Beacons.startUpdatingLocation();
+       Beacons.startUpdatingLocation(); /// было закоментино хз что это
     }
   }
 
@@ -147,9 +147,9 @@ export default class reactNativeBeaconExample extends Component {
   //   );
   // }
 
-  // componentWillUnMount() { //////////пока вообще хз что это 
-  //   this.beaconsDidRange = null;
-  // }
+  componentWillUnMount() { //////////пока вообще хз что это 
+    this.beaconsDidRange = null;
+  }
 
 render() {
     const { dataSource } = this.state;
