@@ -1,3 +1,5 @@
+
+/////////////Шахин код, чутка править
 import React, {
   Component
 } from 'react';
@@ -25,7 +27,7 @@ export default class reactNativeBeaconExample extends Component {
 
     this.state = {
       // region information
-      uuidRef: 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee',
+      uuidRef: 'e36894cc-936a-42cc-9d7b-2cbef9399272',
       clientID: Math.floor(Math.random() * 1000),
       // React Native ListView datasource initialization
       dataSource: ds.cloneWithRows([]),
@@ -96,64 +98,65 @@ export default class reactNativeBeaconExample extends Component {
     }
   }
 
-  componentDidMount() {
-    //
-    // component state aware here - attach events
-    //
+  // componentDidMount() { ///////////////////////////////не рабит
+  //   //
+  //   // component state aware here - attach events
+  //   //
 
-    // Ranging:
-    this.beaconsDidRange = DeviceEventEmitter.addListener(
-      'beaconsDidRange',
-      (data) => {
-        console.log('----------------------------------------------------------');
-        console.log(data.beacons);
-        if (data.beacons.length === 3) {
-          console.log("_______________________________________________________________");
-          this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(data.beacons)
-          });
+  //   // Ranging:
+  //   this.beaconsDidRange = DeviceEventEmitter.addListener(
+  //     'beaconsDidRange',
+  //     (data) => {
+  //       console.log('-----------------------------------------------');
+  //       console.log(data.beacons);
+  //       if (data.beacons.length === 3) {
+  //         console.log("_______________________________________________________");
+  //         this.setState({
+  //           dataSource: this.state.dataSource.cloneWithRows(data.beacons)
+  //         });
 
-          let distances = [];
-          for (var i = 0; i < data.beacons.length; i++) {
-            let beacon_distance = Platform.OS === 'ios' ? data.beacons[i].accuracy : data.beacons[i].distance;
-            let cell = {
-              beaconId: data.beacons[i].major,
-              distance: beacon_distance
-            }
-            distances[i] = cell;
-          }
+  //         let distances = [];
+  //         for (var i = 0; i < data.beacons.length; i++) {
+  //           let beacon_distance = Platform.OS === 'ios' ? data.beacons[i].accuracy : data.beacons[i].distance;
+  //           let cell = {
+  //             beaconId: data.beacons[i].major,
+  //             distance: beacon_distance
+  //           }
+  //           distances[i] = cell;
+  //         }
 
-          let payload = {
-            id: this.state.clientID,
-            distance: distances
-          }
-          console.log("Start");
-          fetch('http://172.20.10.11:80',
-           {
+  //         let payload = {
+  //           id: this.state.clientID,
+  //           distance: distances
+  //         }
+  //         console.log("Start");
+  //         fetch('http://172.20.10.11:80',
+  //          {
             
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-          }).catch(function(){
-            console.log("network error");
-          });
-        }
-      }
-    );
-  }
+  //           method: 'POST',
+  //           headers: {
+  //             Accept: 'application/json',
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: JSON.stringify(payload),
+  //         }).catch(function(){
+  //           console.log("network error");
+  //         });
+  //       }
+  //     }
+  //   );
+  // }
 
-  componentWillUnMount() {
-    this.beaconsDidRange = null;
-  }
+  // componentWillUnMount() { //////////пока вообще хз что это 
+  //   this.beaconsDidRange = null;
+  // }
 
 render() {
     const { dataSource } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.headline}>
+          <Text style={styles.headline}> Всем привет! </Text>
           All beacons in the area
          </Text>
         <ListView
@@ -165,31 +168,31 @@ render() {
     );
   }
 
-  renderRow = rowData => {
-    var beacon_distance = Platform.OS === 'ios' ? rowData.accuracy : rowData.distance;
-    return (
-      <View style={styles.row}>
-        <Text style={styles.smallText}>
-          UUID: {rowData.uuid ? rowData.uuid : 'NA'}
-        </Text>
-        <Text style={styles.smallText}>
-          Major: {rowData.major}
-        </Text>
-        <Text style={styles.smallText}>
-          Minor: {rowData.minor}
-        </Text>
-        <Text>
-          RSSI: {rowData.rssi ? rowData.rssi : 'NA'}
-        </Text>
-        <Text>
-          Proximity: {rowData.proximity ? rowData.proximity : 'NA'}
-        </Text>
-        <Text>
-          Distance: {beacon_distance ? beacon_distance.toFixed(2) : 'NA'} m
-         </Text>
-      </View>
-    );
-  }
+  // renderRow = rowData => {
+  //   var beacon_distance = Platform.OS === 'ios' ? rowData.accuracy : rowData.distance;
+  //   return (
+  //     <View style={styles.row}>
+  //       <Text style={styles.smallText}>
+  //         UUID: {rowData.uuid ? rowData.uuid : 'NA'}
+  //       </Text>
+  //       <Text style={styles.smallText}>
+  //         Major: {rowData.major}
+  //       </Text>
+  //       <Text style={styles.smallText}>
+  //         Minor: {rowData.minor}
+  //       </Text>
+  //       <Text>
+  //         RSSI: {rowData.rssi ? rowData.rssi : 'NA'}
+  //       </Text>
+  //       <Text>
+  //         Proximity: {rowData.proximity ? rowData.proximity : 'NA'}
+  //       </Text>
+  //       <Text>
+  //         Distance: {beacon_distance ? beacon_distance.toFixed(2) : 'NA'} m
+  //        </Text>
+  //     </View>
+  //   );
+  // }
 }
 
 const styles = StyleSheet.create({
@@ -221,3 +224,32 @@ AppRegistry.registerComponent(
   'reactNativeBeaconExample',
   () => reactNativeBeaconExample
 );
+////конец
+
+
+
+
+
+
+Beacons.detectCustomBeaconLayout('m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24') // iBeacons layout
+Beacons.detectIBeacons();
+// Ranging
+Beacons.startRangingBeaconsInRegion('REGION1', 'e36894cc-936a-42cc-9d7b-2cbef9399272')
+  .then(() => console.log(`Beacons ranging started succesfully`))
+  .catch(error => console.log(`Beacons ranging not started, error: ${error}`))
+
+// Monitoring
+Beacons.startMonitoringForRegion('REGION1', 'e36894cc-936a-42cc-9d7b-2cbef9399272')
+  .then(() => console.log(`Beacons monitoring started succesfully`))
+  .catch(error => console.log(`Beacons monitoring not started, error: ${error}`));
+  
+  import { NativeEventEmitter } from 'react-native'; // нефакт что из этой библиотеке нужно качать // это говно не нужно оказывается ДевайсЕвент ещё как то функционирует
+  DeviceEventEmitter.addListener('beaconsDidRange', (data) => {  
+    console.log('Найдены беконы!', data) // Result of ranging
+  })
+  DeviceEventEmitter.addListener('regionDidEnter', (region) => { // изучить что подходит НативЕвенту как аддЛистнер
+    console.log('Entered new beacons region!', region) // Result of monitoring
+  })
+  DeviceEventEmitter.addListener('regionDidExit', (region) => {
+    console.log('Exited beacons region!', region) // Result of monitoring
+  });
