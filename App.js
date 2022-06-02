@@ -10,7 +10,7 @@ import {
   PermissionsAndroid,
   DeviceEventEmitter
 } from 'react-native';
-import ListView from 'deprecated-react-native-listview'; 
+import ListView from 'deprecated-react-native-listview';
 import Beacons from 'react-native-beacons-manager';
 
 
@@ -30,9 +30,10 @@ export default class reactNativeBeaconExample extends Component {
       // React Native ListView datasource initialization
       dataSource: ds.cloneWithRows([]),
     };
-  }
+  };
 
- 
+
+
 
   componentWillMount() {
     //
@@ -41,9 +42,9 @@ export default class reactNativeBeaconExample extends Component {
 
     // ANDROID SETUP
     if (Platform.OS === 'android') {
-    
+
       try {
-        const granted =  PermissionsAndroid.request(
+        const granted = PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: 'Location Permission',
@@ -97,6 +98,23 @@ export default class reactNativeBeaconExample extends Component {
   }
 
   componentDidMount() {
+
+    var idSer = '1';
+    function UpData(url, roomNum, idSer) {
+      fetch(url + idSer
+        , {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: 1,
+            room: roomNum
+          })
+        }).then(res => res.json())
+        .then(res => console.log(res));
+    };
     //
     // component state aware here - attach events
     //
@@ -124,21 +142,20 @@ export default class reactNativeBeaconExample extends Component {
           }
 
           let payload = {
-            id: this.state.clientID,
+            Uid: this.state.clientID,
             distance: distances
-          }
+          };
           console.log("Start");
-          fetch('http://172.20.10.11:80', {
-            
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-          }).catch(function(){
-            console.log("network error");
-          });
+          var idd;
+          if(distances[0].beaconId == 1) {idd = 301}
+          else if(distances[0].beaconId == 2) {idd = 302}
+          else if(distances[0].beaconId == 3) {idd = 303}
+          else {idd = distances[0].beaconId}
+          UpData('https://628c8a38a3fd714fd034114b.mockapi.io/room/', idd, "1");
+          console.log("ОтправленоWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+          console.log(distances[0].beaconId);
+          console.log('eee')
+          
         }
       }
     );
@@ -154,7 +171,7 @@ export default class reactNativeBeaconExample extends Component {
       <View style={styles.container}>
         <Text style={styles.headline}>
           All beacons in the area
-         </Text>
+        </Text>
         <ListView
           dataSource={dataSource}
           enableEmptySections={true}
@@ -185,7 +202,7 @@ export default class reactNativeBeaconExample extends Component {
         </Text>
         <Text>
           Distance: {beacon_distance ? beacon_distance.toFixed(2) : 'NA'} m
-         </Text>
+        </Text>
       </View>
     );
   }
